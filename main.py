@@ -1,4 +1,6 @@
 # main.py
+import os
+os.environ["DISCORD_NO_VOICE"] = "1"
 import asyncio
 import logging
 from src.core.bot import NaeratusBot
