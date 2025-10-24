@@ -1,4 +1,7 @@
 # main.py
+from keep_alive import keep_alive
+keep_alive()  # запуск веб-сервера ДО bot.run()
+bot.run(os.getenv('TOKEN'))
 import os
 os.environ["DISCORD_NO_VOICE"] = "1"
 import asyncio
@@ -33,3 +36,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
