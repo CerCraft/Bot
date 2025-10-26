@@ -1,9 +1,9 @@
-import keep_alive  # ← ЭТО ДОЛЖНО БЫТЬ ПЕРВОЙ СТРОКОЙ (после комментариев)
+# === KEEP-ALIVE (должен быть первым) ===
+import keep_alive
+keep_alive.keep_alive()  # запускаем веб-сервер ДО всего остального
 
+# === ОСТАЛЬНЫЕ ИМПОРТЫ ===
 import os
-os.environ["DISCORD_NO_VOICE"] = "1"  # ← ОБЯЗАТЕЛЬНО, чтобы избежать audioop
-bot.run(os.getenv('TOKEN'))
-
 import asyncio
 import logging
 from src.core.bot import NaeratusBot
@@ -12,6 +12,8 @@ from src.database.connection import init_db
 from src.database.discipline import init_discipline_db
 from src.database.economy import init_economy_db
 
+# === НАСТРОЙКИ ===
+os.environ["DISCORD_NO_VOICE"] = "1"  # предотвращает ошибку audioop
 
 async def main():
     logging.basicConfig(
@@ -33,11 +35,5 @@ async def main():
         logging.warning("🛑 Бот остановлен вручную.")
         await bot.close()
 
-
 if __name__ == "__main__":
-    keep_alive.keep_alive()
     asyncio.run(main())
-    
-
-
-
