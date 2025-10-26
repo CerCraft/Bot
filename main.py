@@ -1,7 +1,9 @@
-import keep_alive
-bot.run(os.getenv('TOKEN'))
+import keep_alive  # ← ЭТО ДОЛЖНО БЫТЬ ПЕРВОЙ СТРОКОЙ (после комментариев)
+
 import os
-os.environ["DISCORD_NO_VOICE"] = "1"
+os.environ["DISCORD_NO_VOICE"] = "1"  # ← ОБЯЗАТЕЛЬНО, чтобы избежать audioop
+bot.run(os.getenv('TOKEN'))
+
 import asyncio
 import logging
 from src.core.bot import NaeratusBot
@@ -33,6 +35,9 @@ async def main():
 
 
 if __name__ == "__main__":
+    keep_alive.keep_alive()
     asyncio.run(main())
+    
+
 
 
