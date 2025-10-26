@@ -1,20 +1,17 @@
 discord.py==2.4.0
-
 SQLAlchemy==2.0.35
 aiosqlite==0.20.0
-
 pydantic==2.9.2
 pydantic-settings==2.4.0
 python-dotenv==1.0.1
-
 aiofiles==24.1.0
 colorlog==6.8.2
+PyNaCl
 
+# Для разработки (опционально, но ты указал)
 pytest==8.3.3
 pytest-asyncio==0.24.0
 mypy==1.13.0
 ruff==0.7.2
 black==24.8.0
 isort==5.13.2
-PyNaCl
-pydantic-settings
