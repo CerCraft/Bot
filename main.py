@@ -1,8 +1,7 @@
-# === KEEP-ALIVE (должен быть первым) ===
-import keep_alive
-keep_alive.keep_alive()  # запускаем веб-сервер ДО всего остального
-
-# === ОСТАЛЬНЫЕ ИМПОРТЫ ===
+# === ВСТРОЕННЫЙ HTTP-СЕРВЕР ДЛЯ RENDER (порт 8000) ===
+import threading
+import http.server
+import socketserver
 import os
 import asyncio
 import logging
@@ -12,8 +11,21 @@ from src.database.connection import init_db
 from src.database.discipline import init_discipline_db
 from src.database.economy import init_economy_db
 
+# Запуск HTTP-сервера в фоновом потоке
+def start_http_server():
+    class Handler(http.server.SimpleHTTPRequestHandler):
+        def do_GET(self):
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b"OK")
+    with socketserver.TCPServer(("", 8000), Handler) as httpd:
+        httpd.serve_forever()
+
+# Запускаем сервер ДО всего остального
+threading.Thread(target=start_http_server, daemon=True).start()
+
 # === НАСТРОЙКИ ===
-os.environ["DISCORD_NO_VOICE"] = "1"  # предотвращает ошибку audioop
+os.environ["DISRING_NO_VOICE"] = "1"  # предотвращает ошибку audioop
 
 async def main():
     logging.basicConfig(
