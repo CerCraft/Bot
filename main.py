@@ -1,4 +1,6 @@
 # === ВСТРОЕННЫЙ HTTP-СЕРВЕР ДЛЯ RENDER (порт 8000) ===
+import os
+os.environ["DISCORD_NO_VOICE"] = "1"
 import threading
 import http.server
 import socketserver
@@ -49,3 +51,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
