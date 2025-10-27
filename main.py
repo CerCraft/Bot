@@ -1,8 +1,10 @@
-# === 1. ОТКЛЮЧИ ГОЛОС ДО ВСЕХ ИМПОРТОВ ===
+# main.py — ПОЛНОСТЬЮ РАБОЧАЯ ВЕРСИЯ ДЛЯ RENDER
+
+# === ОБЯЗАТЕЛЬНО: отключи голос ДО ЛЮБЫХ ИМПОРТОВ ===
 import os
 os.environ["DISCORD_NO_VOICE"] = "1"
 
-# === 2. ОСТАЛЬНЫЕ ИМПОРТЫ ===
+# === ОСТАЛЬНЫЕ ИМПОРТЫ ===
 import asyncio
 import logging
 from src.core.bot import NaeratusBot
@@ -11,7 +13,6 @@ from src.database.connection import init_db
 from src.database.discipline import init_discipline_db
 from src.database.economy import init_economy_db
 
-# === 3. ОСНОВНАЯ ЛОГИКА ===
 async def main():
     logging.basicConfig(
         level=logging.INFO,
