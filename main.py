@@ -1,19 +1,12 @@
-# === ВСТРОЕННЫЙ HTTP-СЕРВЕР ДЛЯ RENDER (порт 8000) ===
+# === САМОЕ ПЕРВОЕ: отключить голос ДО ВСЕХ ИМПОРТОВ ===
 import os
 os.environ["DISCORD_NO_VOICE"] = "1"
+
+# === ВСТРОЕННЫЙ HTTP-СЕРВЕР ДЛЯ RENDER (порт 8000) ===
 import threading
 import http.server
 import socketserver
-import os
-import asyncio
-import logging
-from src.core.bot import NaeratusBot
-from src.core.config import settings
-from src.database.connection import init_db
-from src.database.discipline import init_discipline_db
-from src.database.economy import init_economy_db
 
-# Запуск HTTP-сервера в фоновом потоке
 def start_http_server():
     class Handler(http.server.SimpleHTTPRequestHandler):
         def do_GET(self):
@@ -23,11 +16,16 @@ def start_http_server():
     with socketserver.TCPServer(("", 8000), Handler) as httpd:
         httpd.serve_forever()
 
-# Запускаем сервер ДО всего остального
 threading.Thread(target=start_http_server, daemon=True).start()
 
-# === НАСТРОЙКИ ===
-os.environ["DISRING_NO_VOICE"] = "1"  # предотвращает ошибку audioop
+# === ОСТАЛЬНЫЕ ИМПОРТЫ (только после установки DISCORD_NO_VOICE) ===
+import asyncio
+import logging
+from src.core.bot import NaeratusBot
+from src.core.config import settings
+from src.database.connection import init_db
+from src.database.discipline import init_discipline_db
+from src.database.economy import init_economy_db
 
 async def main():
     logging.basicConfig(
@@ -35,7 +33,6 @@ async def main():
         format="[%(asctime)s] [%(levelname)s] %(name)s: %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )
-
     logging.info("🚀 Запуск бота...")
 
     init_db()
@@ -51,4 +48,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
